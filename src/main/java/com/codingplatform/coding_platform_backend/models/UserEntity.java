@@ -44,7 +44,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Submission> submissions = new HashSet<>();
 
-    public void setRole(Role role){
-        roles.add(role);
+    public boolean addRole(Role role){
+        return roles.add(role);
     }
 }

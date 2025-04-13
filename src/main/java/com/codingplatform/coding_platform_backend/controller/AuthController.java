@@ -56,7 +56,7 @@ public class AuthController {
         user.setName(registerDto.getName());
 
         Role role = roleRepository.findByName(RoleName.USER).get();
-        user.setRole(role);
+        user.addRole(role);
 
         userRepository.save(user);
 

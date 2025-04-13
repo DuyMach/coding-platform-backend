@@ -36,4 +36,17 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ProblemAlreadyExistException.class)
+    public ResponseEntity<ErrorObject> handleProblemAlreadyExistException(
+            ProblemAlreadyExistException problemAlreadyExistException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.CONFLICT.value());
+        errorObject.setMessage(problemAlreadyExistException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.CONFLICT);
+    }
 }

@@ -47,4 +47,10 @@ public class Problem {
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Submission> submissions = new HashSet<>();
+
+    public Problem(String title, String description, Difficulty difficulty) {
+        this.title = title;
+        this.description = description;
+        this.difficulty = difficulty;
+    }
 }

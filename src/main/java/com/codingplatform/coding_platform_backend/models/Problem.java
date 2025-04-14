@@ -53,4 +53,8 @@ public class Problem {
         this.description = description;
         this.difficulty = difficulty;
     }
+
+    public boolean addTag(Tag tag){
+        return tags.add(tag);
+    }
 }

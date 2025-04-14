@@ -1,6 +1,8 @@
 package com.codingplatform.coding_platform_backend.controller;
 
+import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
+import com.codingplatform.coding_platform_backend.dto.TagDto;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,5 +33,22 @@ public class ProblemController {
         Set<ProblemDto> problemDtoSet = problemService.getAllProblem();
 
         return new ResponseEntity<>(problemDtoSet, HttpStatus.OK);
+    }
+
+    @GetMapping("/problem/{id}/tags")
+    public ResponseEntity<Set<TagDto>> getAllTagByProblemId(@PathVariable("id") Long problemId){
+        Set<TagDto> tagDtoSet = problemService.getAllTagByProblemId(problemId);
+
+        return new ResponseEntity<>(tagDtoSet, HttpStatus.OK);
+    }
+
+    @PostMapping("/problem/{id}/tags")
+    public ResponseEntity<String> addTagsToProblem(
+            @PathVariable("id") Long problemId,
+            @RequestBody AddTagsToProblemDto addTagsToProblemDto)
+    {
+        String message = problemService.addTagsToProblem(problemId, addTagsToProblemDto);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

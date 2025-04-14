@@ -18,4 +18,9 @@ public class TagMapper {
     public static Set<TagDto> mapToTagDtoSet(List<Tag> tagList){
         return tagList.stream().map(TagMapper::mapToTagDto).collect(Collectors.toSet());
     }
+
+    public static Set<TagDto> mapToTagDtoSet(Set<Tag> tagList){
+        return tagList.stream().map(TagMapper::mapToTagDto).collect(Collectors.toSet());
+    }
+
 }

@@ -81,4 +81,22 @@ public class ProblemServiceImpl implements ProblemService {
 
         return "Tags successfully added to problem";
     }
+
+    @Override
+    public Set<ProblemDto> getAllProblemByTagId(Long tagId) {
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new TagNotFoundException("Tag with given ID doesn't exist!"));
+
+        Set<Problem> problemSet = tag.getProblems();
+
+        return ProblemMapper.mapToProblemDtoSet(problemSet.stream().toList());
+    }
+
+    @Override
+    public ProblemDto getProblemById(Long problemId) {
+        Problem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new ProblemNotFoundException("Problem with given ID doesn't exist"));
+
+        return ProblemMapper.mapToProblemDto(problem);
+    }
 }

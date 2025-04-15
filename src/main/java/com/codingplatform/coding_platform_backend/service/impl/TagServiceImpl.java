@@ -2,6 +2,7 @@ package com.codingplatform.coding_platform_backend.service.impl;
 
 import com.codingplatform.coding_platform_backend.dto.TagDto;
 import com.codingplatform.coding_platform_backend.dto.mapper.TagMapper;
+import com.codingplatform.coding_platform_backend.exception.TagNotFoundException;
 import com.codingplatform.coding_platform_backend.models.Tag;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
 import com.codingplatform.coding_platform_backend.service.TagService;
@@ -24,5 +25,13 @@ public class TagServiceImpl implements TagService {
     public Set<TagDto> getAllTag() {
         List<Tag> tagList = tagRepository.findAll();
         return TagMapper.mapToTagDtoSet(tagList);
+    }
+
+    @Override
+    public TagDto getTagById(Long tagId) {
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new TagNotFoundException("Tag with given ID doesn't exist!"));
+
+        return TagMapper.mapToTagDto(tag);
     }
 }

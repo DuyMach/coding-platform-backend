@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,12 @@ public class TagController {
         Set<TagDto> tagDtoSet = tagService.getAllTag();
 
         return new ResponseEntity<>(tagDtoSet, HttpStatus.OK);
+    }
+
+    @GetMapping("/tag/{id}")
+    public ResponseEntity<TagDto> getTagById(@PathVariable("id") Long tagId){
+        TagDto tagDto = tagService.getTagById(tagId);
+
+        return new ResponseEntity<>(tagDto, HttpStatus.FOUND);
     }
 }

@@ -51,4 +51,19 @@ public class ProblemController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @GetMapping("/problem/by-tag/{id}")
+    public ResponseEntity<Set<ProblemDto>> getAllProblemByTagId(@PathVariable("id") Long tagId){
+        Set<ProblemDto> problemDtoSet = problemService.getAllProblemByTagId(tagId);
+
+        return new ResponseEntity<>(problemDtoSet, HttpStatus.OK);
+    }
+
+    @GetMapping("/problem/{id}")
+    public ResponseEntity<ProblemDto> getProblemById(@PathVariable("id") Long problemId){
+        ProblemDto problemDto = problemService.getProblemById(problemId);
+
+        return new ResponseEntity<>(problemDto, HttpStatus.FOUND);
+    }
+
 }

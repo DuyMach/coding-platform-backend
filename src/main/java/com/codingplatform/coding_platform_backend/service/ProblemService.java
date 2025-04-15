@@ -11,4 +11,6 @@ public interface ProblemService {
     Set<ProblemDto> getAllProblem();
     Set<TagDto> getAllTagByProblemId(Long problemId);
     String addTagsToProblem(Long problemId, AddTagsToProblemDto addTagsToProblemDto);
+    Set<ProblemDto> getAllProblemByTagId(Long tagId);
+    ProblemDto getProblemById(Long problemId);
 }

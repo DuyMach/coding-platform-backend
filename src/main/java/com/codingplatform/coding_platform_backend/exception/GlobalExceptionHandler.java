@@ -36,4 +36,56 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ProblemAlreadyExistException.class)
+    public ResponseEntity<ErrorObject> handleProblemAlreadyExistException(
+            ProblemAlreadyExistException problemAlreadyExistException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.CONFLICT.value());
+        errorObject.setMessage(problemAlreadyExistException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ProblemNotFoundException.class)
+    public ResponseEntity<ErrorObject> handleProblemNotFoundException(
+            ProblemNotFoundException problemNotFoundException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
+        errorObject.setMessage(problemNotFoundException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TagNotFoundException.class)
+    public ResponseEntity<ErrorObject> handleTagNotFoundException(
+            TagNotFoundException tagNotFoundException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
+        errorObject.setMessage(tagNotFoundException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorObject> handleIllegalArgumentException(
+            IllegalArgumentException illegalArgumentException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        errorObject.setMessage(illegalArgumentException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.BAD_REQUEST);
+    }
 }

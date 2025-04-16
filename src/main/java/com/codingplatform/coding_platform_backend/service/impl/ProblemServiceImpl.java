@@ -10,6 +10,8 @@ import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundExcep
 import com.codingplatform.coding_platform_backend.exception.TagNotFoundException;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.Tag;
+import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ProblemServiceImpl implements ProblemService {
@@ -98,5 +99,26 @@ public class ProblemServiceImpl implements ProblemService {
                 .orElseThrow(() -> new ProblemNotFoundException("Problem with given ID doesn't exist"));
 
         return ProblemMapper.mapToProblemDto(problem);
+    }
+
+    @Override
+    public Set<ProblemDto> getAllProblemByDifficulty(Difficulty difficulty) {
+        List<Problem> problemList = problemRepository.findAllByDifficulty(difficulty);
+
+        return ProblemMapper.mapToProblemDtoSet(problemList);
+    }
+
+    @Override
+    public Set<ProblemDto> getAllProblemsByTagName(TagName tagName) {
+        List<Problem> problemList = problemRepository.findByTagName(tagName);
+
+        return ProblemMapper.mapToProblemDtoSet(problemList);
+    }
+
+    @Override
+    public Set<ProblemDto> getAllProblemsByTagAndDifficulty(TagName tagName, Difficulty difficulty) {
+        List<Problem> problemList = problemRepository.findByTagNameAndDifficulty(tagName, difficulty);
+
+        return ProblemMapper.mapToProblemDtoSet(problemList);
     }
 }

@@ -3,6 +3,8 @@ package com.codingplatform.coding_platform_backend.controller;
 import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
 import com.codingplatform.coding_platform_backend.dto.TagDto;
+import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +31,21 @@ public class ProblemController {
     }
 
     @GetMapping("/problems")
-    public ResponseEntity<Set<ProblemDto>> getAllProblem(){
-        Set<ProblemDto> problemDtoSet = problemService.getAllProblem();
+    public ResponseEntity<Set<ProblemDto>> getAllProblems(
+            @RequestParam(required = false) Difficulty difficulty,
+            @RequestParam(required = false) TagName tagName)
 
+    {
+        Set<ProblemDto> problemDtoSet;
+        if(tagName != null && difficulty != null) {
+            problemDtoSet = problemService.getAllProblemsByTagAndDifficulty(tagName, difficulty);
+        } else if (tagName != null){
+            problemDtoSet = problemService.getAllProblemsByTagName(tagName);
+        } else if (difficulty != null){
+            problemDtoSet = problemService.getAllProblemByDifficulty(difficulty);
+        } else {
+            problemDtoSet = problemService.getAllProblem();
+        }
         return new ResponseEntity<>(problemDtoSet, HttpStatus.OK);
     }
 

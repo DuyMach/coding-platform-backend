@@ -1,7 +1,9 @@
 package com.codingplatform.coding_platform_backend.service.impl;
 
 import com.codingplatform.coding_platform_backend.dto.SubmissionRequestDto;
+import com.codingplatform.coding_platform_backend.dto.SubmissionSummaryDto;
 import com.codingplatform.coding_platform_backend.dto.mapper.SubmissionRequestMapper;
+import com.codingplatform.coding_platform_backend.dto.mapper.SubmissionSummaryMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
 import com.codingplatform.coding_platform_backend.exception.UserNotFoundException;
 import com.codingplatform.coding_platform_backend.models.Problem;
@@ -14,6 +16,9 @@ import com.codingplatform.coding_platform_backend.repository.UserRepository;
 import com.codingplatform.coding_platform_backend.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class SubmissionServiceImpl implements SubmissionService {
@@ -51,5 +56,13 @@ public class SubmissionServiceImpl implements SubmissionService {
 
 
         return SubmissionRequestMapper.mapToSubmissionDto(savedSubmission);
+    }
+
+    @Override
+    public Set<SubmissionSummaryDto> getAllSubmissionByUserIdAndProblemId(Long userId, Long problemId) {
+
+        List<Submission> submissionList = submissionRepository.findByUserIdAndProblemId(userId, problemId);
+
+        return SubmissionSummaryMapper.mapToSubmissionSummaryDtoSet(submissionList);
     }
 }

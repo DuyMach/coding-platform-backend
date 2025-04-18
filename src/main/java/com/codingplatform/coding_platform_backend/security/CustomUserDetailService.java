@@ -31,14 +31,10 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Email not found"));
 
-        Collection<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toString())).collect(Collectors.toSet());
-
-        return new CustomUserPrincipal(user, authorities);
-//        return new User(user.getEmail(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        return new CustomUserPrincipal(user, mapRolesToAuthorities(user.getRoles()));
     }
 
     private Collection<GrantedAuthority> mapRolesToAuthorities(Set<Role> roles){
-        return roles.stream().map((role) -> new SimpleGrantedAuthority(role.getName().toString())).collect(Collectors.toList());
+        return roles.stream().map((role) -> new SimpleGrantedAuthority("ROLE_" + role.getName().toString())).collect(Collectors.toSet());
     }
 }

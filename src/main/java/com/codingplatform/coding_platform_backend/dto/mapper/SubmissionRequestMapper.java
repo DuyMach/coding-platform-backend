@@ -1,6 +1,5 @@
 package com.codingplatform.coding_platform_backend.dto.mapper;
 
-import com.codingplatform.coding_platform_backend.dto.SubmissionDto;
 import com.codingplatform.coding_platform_backend.dto.SubmissionRequestDto;
 import com.codingplatform.coding_platform_backend.models.Submission;
 import lombok.Data;

@@ -1,10 +1,13 @@
 package com.codingplatform.coding_platform_backend.service.impl;
 
+import com.codingplatform.coding_platform_backend.dto.SubmissionDetailsDto;
 import com.codingplatform.coding_platform_backend.dto.SubmissionRequestDto;
 import com.codingplatform.coding_platform_backend.dto.SubmissionSummaryDto;
+import com.codingplatform.coding_platform_backend.dto.mapper.SubmissionDetailsMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.SubmissionRequestMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.SubmissionSummaryMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
+import com.codingplatform.coding_platform_backend.exception.SubmissionNotFoundException;
 import com.codingplatform.coding_platform_backend.exception.UserNotFoundException;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.Submission;
@@ -64,5 +67,13 @@ public class SubmissionServiceImpl implements SubmissionService {
         List<Submission> submissionList = submissionRepository.findByUserIdAndProblemId(userId, problemId);
 
         return SubmissionSummaryMapper.mapToSubmissionSummaryDtoSet(submissionList);
+    }
+
+    @Override
+    public SubmissionDetailsDto getSubmissionById(Long submissionId) {
+        Submission submission = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new SubmissionNotFoundException("Submission with given ID doesn't exist"));
+
+        return SubmissionDetailsMapper.mapToSubmissionDetailsDto(submission);
     }
 }

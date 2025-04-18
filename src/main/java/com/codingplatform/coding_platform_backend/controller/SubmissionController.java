@@ -1,5 +1,6 @@
 package com.codingplatform.coding_platform_backend.controller;
 
+import com.codingplatform.coding_platform_backend.dto.SubmissionDetailsDto;
 import com.codingplatform.coding_platform_backend.dto.SubmissionRequestDto;
 import com.codingplatform.coding_platform_backend.dto.SubmissionSummaryDto;
 import com.codingplatform.coding_platform_backend.service.SubmissionService;
@@ -35,5 +36,12 @@ public class SubmissionController {
         Set<SubmissionSummaryDto> submissionSet = submissionService.getAllSubmissionByUserIdAndProblemId(userId, problemId);
 
         return new ResponseEntity<>(submissionSet, HttpStatus.OK);
+    }
+
+    @GetMapping("/submission/{id}")
+    public ResponseEntity<SubmissionDetailsDto> getSubmissionById(@PathVariable("id") Long submissionId){
+        SubmissionDetailsDto submissionDetailsDto = submissionService.getSubmissionById(submissionId);
+
+        return new ResponseEntity<>(submissionDetailsDto, HttpStatus.FOUND);
     }
 }

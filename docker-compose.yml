@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_PROFILES_ACTIVE: dev
+      SPRING_PROFILES_ACTIVE: prod
       DATABASE_URL: jdbc:postgresql://db:5432/coding_platform_db
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres

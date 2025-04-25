@@ -34,6 +34,7 @@ public class Problem {
     @Column(updatable = false)
     private LocalDateTime creationDate;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name = "problem_tags",

@@ -23,4 +23,10 @@ public class TagMapper {
         return tagList.stream().map(TagMapper::mapToTagDto).collect(Collectors.toSet());
     }
 
+    public static Tag mapToTag(TagDto tagDto){
+        Tag tag = new Tag();
+        tag.setName(tagDto.getName());
+
+        return tag;
+    }
 }

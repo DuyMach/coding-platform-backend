@@ -7,4 +7,5 @@ import java.util.Set;
 public interface TagService {
     Set<TagDto> getAllTag();
     TagDto getTagById(Long tagId);
+    TagDto createTag(TagDto tagDto);
 }

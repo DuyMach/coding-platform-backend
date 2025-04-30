@@ -49,14 +49,14 @@ public class ProblemController {
         return new ResponseEntity<>(problemDtoSet, HttpStatus.OK);
     }
 
-    @GetMapping("/problem/{id}/tags")
+    @GetMapping("/problems/{id}/tags")
     public ResponseEntity<Set<TagDto>> getAllTagByProblemId(@PathVariable("id") Long problemId){
         Set<TagDto> tagDtoSet = problemService.getAllTagByProblemId(problemId);
 
         return new ResponseEntity<>(tagDtoSet, HttpStatus.OK);
     }
 
-    @PostMapping("/problem/{id}/tags")
+    @PostMapping("/problems/{id}/tags")
     public ResponseEntity<String> addTagsToProblem(
             @PathVariable("id") Long problemId,
             @RequestBody AddTagsToProblemDto addTagsToProblemDto)
@@ -66,14 +66,14 @@ public class ProblemController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @GetMapping("/problem/by-tag/{id}")
+    @GetMapping("/problems/by-tag/{id}")
     public ResponseEntity<Set<ProblemDto>> getAllProblemByTagId(@PathVariable("id") Long tagId){
         Set<ProblemDto> problemDtoSet = problemService.getAllProblemByTagId(tagId);
 
         return new ResponseEntity<>(problemDtoSet, HttpStatus.OK);
     }
 
-    @GetMapping("/problem/{id}")
+    @GetMapping("/problems/{id}")
     public ResponseEntity<ProblemDto> getProblemById(@PathVariable("id") Long problemId){
         ProblemDto problemDto = problemService.getProblemById(problemId);
 

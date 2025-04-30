@@ -77,7 +77,7 @@ public class ProblemController {
     public ResponseEntity<ProblemDto> getProblemById(@PathVariable("id") Long problemId){
         ProblemDto problemDto = problemService.getProblemById(problemId);
 
-        return new ResponseEntity<>(problemDto, HttpStatus.FOUND);
+        return new ResponseEntity<>(problemDto, HttpStatus.OK);
     }
 
 }

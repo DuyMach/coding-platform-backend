@@ -9,6 +9,7 @@ import com.codingplatform.coding_platform_backend.exception.TagNotFoundException
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.Tag;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
@@ -45,6 +46,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         ProblemDto problemDto = ProblemDto.builder()
@@ -53,6 +57,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         when(problemRepository.existsByTitle(problemDto.getTitle())).thenReturn(false);
@@ -74,6 +81,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         when(problemRepository.existsByTitle(problemDto.getTitle())).thenReturn(true);
 
@@ -92,6 +102,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         Problem problem2 = Problem.builder()
                 .title("Combination Sum II")
@@ -99,6 +112,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         List<Problem> problemDtoList = Arrays.asList(problem, problem2);
@@ -130,6 +146,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(array_tag);
         problem.addTag(design_tag);
@@ -180,6 +199,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         AddTagsToProblemDto addTagsToProblemDto = AddTagsToProblemDto.builder()
@@ -222,6 +244,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         AddTagsToProblemDto addTagsToProblemDto = AddTagsToProblemDto.builder().build();
@@ -244,6 +269,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         AddTagsToProblemDto addTagsToProblemDto = AddTagsToProblemDto.builder()
@@ -278,6 +306,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         AddTagsToProblemDto addTagsToProblemDto = AddTagsToProblemDto.builder()
@@ -310,6 +341,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         Problem problem2 = Problem.builder()
@@ -318,6 +352,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         problem.addTag(design_tag);
@@ -356,6 +393,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         when(problemRepository.findById(problemId)).thenReturn(Optional.of(problem));
@@ -391,6 +431,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         when(problemRepository.findAllByDifficulty(problem.getDifficulty())).thenReturn(Collections.singletonList(problem));
@@ -419,6 +462,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
 
@@ -448,6 +494,9 @@ public class ProblemServiceTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
 

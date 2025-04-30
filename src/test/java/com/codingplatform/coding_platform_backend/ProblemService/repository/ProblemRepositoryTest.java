@@ -3,6 +3,7 @@ package com.codingplatform.coding_platform_backend.ProblemService.repository;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.Tag;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
@@ -36,6 +37,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem 1")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         // Act
@@ -54,6 +58,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -61,6 +68,9 @@ public class ProblemRepositoryTest {
                 .title("I am Cold")
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.EASY)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem1);
 
@@ -79,6 +89,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -97,6 +110,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -104,6 +120,9 @@ public class ProblemRepositoryTest {
                 .title("I am Cold")
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem1);
 
@@ -113,6 +132,9 @@ public class ProblemRepositoryTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.MEDIUM)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem2);
 
@@ -148,6 +170,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
         problem.addTag(array_tag);
@@ -157,6 +182,9 @@ public class ProblemRepositoryTest {
                 .title("I am Cold")
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem1.addTag(design_tag);
         problemRepository.save(problem1);
@@ -192,6 +220,9 @@ public class ProblemRepositoryTest {
                 .title("Test Problem")
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
         problem.addTag(array_tag);
@@ -201,6 +232,9 @@ public class ProblemRepositoryTest {
                 .title("I am Cold")
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem1.addTag(design_tag);
         problemRepository.save(problem1);
@@ -211,6 +245,9 @@ public class ProblemRepositoryTest {
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem2.addTag(array_tag);
         problemRepository.save(problem2);

@@ -14,16 +14,26 @@ public class ProblemMapper {
                 problem.getTitle(),
                 problem.getDescription(),
                 problem.getDifficulty(),
-                problem.getCreationDate()
+                problem.getCreationDate(),
+                problem.getFunctionName(),
+                problem.getConstraints(),
+                problem.getHint(),
+                problem.isPremium(),
+                problem.getUpdatedAt(),
+                problem.getVisibility()
         );
     }
 
     public static Problem mapToProblem(ProblemDto problemDto){
-       return new Problem(
-               problemDto.getTitle().toUpperCase(),
-               problemDto.getDescription(),
-               problemDto.getDifficulty()
-       );
+       Problem problem = new Problem();
+       problem.setTitle(problemDto.getTitle());
+       problem.setDescription(problemDto.getDescription());
+       problem.setDifficulty(problemDto.getDifficulty());
+       problem.setFunctionName(problemDto.getFunctionName());
+       problem.setPremium(problemDto.isPremium());
+       problem.setVisibility(problemDto.getVisibility());
+
+       return problem;
     }
 
     public static Set<ProblemDto> mapToProblemDtoSet(List<Problem> problemList){

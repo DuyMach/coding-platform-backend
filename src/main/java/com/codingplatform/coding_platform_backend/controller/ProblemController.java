@@ -6,6 +6,7 @@ import com.codingplatform.coding_platform_backend.dto.TagDto;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class ProblemController {
     }
 
     @PostMapping("/problem")
-    public ResponseEntity<ProblemDto> createProblem(@RequestBody ProblemDto problemDto){
+    public ResponseEntity<ProblemDto> createProblem(@Valid @RequestBody ProblemDto problemDto){
         ProblemDto createdProblem = problemService.createProblem(problemDto);
 
         return new ResponseEntity<>(createdProblem, HttpStatus.CREATED);

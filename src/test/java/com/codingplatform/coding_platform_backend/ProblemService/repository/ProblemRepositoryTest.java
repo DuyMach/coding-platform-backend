@@ -38,6 +38,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
 
         // Act
@@ -57,6 +59,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -65,6 +69,8 @@ public class ProblemRepositoryTest {
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.EASY)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem1);
 
@@ -84,6 +90,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -103,6 +111,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem);
 
@@ -111,6 +121,8 @@ public class ProblemRepositoryTest {
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem1);
 
@@ -121,6 +133,8 @@ public class ProblemRepositoryTest {
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problemRepository.save(problem2);
 
@@ -157,6 +171,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
         problem.addTag(array_tag);
@@ -167,6 +183,8 @@ public class ProblemRepositoryTest {
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem1.addTag(design_tag);
         problemRepository.save(problem1);
@@ -203,6 +221,8 @@ public class ProblemRepositoryTest {
                 .description("I need job please!")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem.addTag(design_tag);
         problem.addTag(array_tag);
@@ -213,6 +233,8 @@ public class ProblemRepositoryTest {
                 .description("I live in New York, The Cold Doesn't Bother Me Anyways")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem1.addTag(design_tag);
         problemRepository.save(problem1);
@@ -224,6 +246,8 @@ public class ProblemRepositoryTest {
                         " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
                 .build();
         problem2.addTag(array_tag);
         problemRepository.save(problem2);

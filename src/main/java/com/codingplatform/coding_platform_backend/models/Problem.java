@@ -1,12 +1,14 @@
 package com.codingplatform.coding_platform_backend.models;
 
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -48,6 +50,24 @@ public class Problem {
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Submission> submissions = new HashSet<>();
+
+    private String functionName;
+
+    private String constraints;
+
+    private List<String> hint;
+
+    private boolean isPremium;
+
+    private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProblemVisibility visibility;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<StarterCode> starterCodes = new HashSet<>();
 
     public Problem(String title, String description, Difficulty difficulty) {
         this.title = title;

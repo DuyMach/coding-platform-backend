@@ -51,12 +51,14 @@ public class Problem {
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Submission> submissions = new HashSet<>();
 
+    @Column(nullable = false)
     private String functionName;
 
     private String constraints;
 
     private List<String> hint;
 
+    @Column(nullable = false)
     private boolean isPremium;
 
     private LocalDateTime updatedAt;

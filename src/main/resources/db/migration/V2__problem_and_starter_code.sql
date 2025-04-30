@@ -1,19 +1,16 @@
--- Add selected fields to the Problem table with defaults to avoid null issues
+ALTER TABLE problem ADD COLUMN function_name VARCHAR(255);
+ALTER TABLE problem ADD COLUMN constraints TEXT;
+ALTER TABLE problem ADD COLUMN hint TEXT;
+ALTER TABLE problem ADD COLUMN is_premium BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE problem ADD COLUMN visibility VARCHAR(20) NOT NULL DEFAULT 'PUBLIC';
+ALTER TABLE problem ADD COLUMN updated_at TIMESTAMP;
 
-ALTER TABLE problem
-ADD COLUMN function_name VARCHAR(255),
-ADD COLUMN constraints TEXT,
-ADD COLUMN hint TEXT,
-ADD COLUMN is_premium BOOLEAN NOT NULL DEFAULT FALSE,
-ADD COLUMN visibility VARCHAR(20) NOT NULL DEFAULT 'PUBLIC';
-
--- Create StarterCode table
 CREATE TABLE starter_code (
-    id BIGSERIAL PRIMARY KEY,
-    language VARCHAR(100) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    language VARCHAR(50) NOT NULL,
     code TEXT NOT NULL,
-    problem_id BIGINT NOT NULL,
-    CONSTRAINT fk_starter_code_problem
-        FOREIGN KEY (problem_id) REFERENCES problem(id)
+    problem_id BIGINT,
+    CONSTRAINT fk_problem FOREIGN KEY (problem_id)
+        REFERENCES problem (id)
         ON DELETE CASCADE
 );

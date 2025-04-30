@@ -2,11 +2,13 @@ package com.codingplatform.coding_platform_backend.models;
 
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
+import com.codingplatform.coding_platform_backend.persistence.HintListConverter;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +58,9 @@ public class Problem {
 
     private String constraints;
 
-    private List<String> hint;
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = HintListConverter.class)
+    private List<String> hint = new ArrayList<>();
 
     @Column(nullable = false)
     private boolean isPremium;

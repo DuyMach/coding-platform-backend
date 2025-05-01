@@ -2,6 +2,7 @@ package com.codingplatform.coding_platform_backend.models;
 
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
+import com.codingplatform.coding_platform_backend.persistence.ConstraintListConverter;
 import com.codingplatform.coding_platform_backend.persistence.HintListConverter;
 import jakarta.persistence.*;
 import lombok.*;
@@ -56,7 +57,9 @@ public class Problem {
     @Column(nullable = false)
     private String functionName;
 
-    private String constraints;
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = ConstraintListConverter.class)
+    private List<String> constraints = new ArrayList<>();
 
     @Column(columnDefinition = "TEXT")
     @Convert(converter = HintListConverter.class)

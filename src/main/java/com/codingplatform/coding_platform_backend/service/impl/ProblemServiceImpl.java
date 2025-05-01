@@ -18,6 +18,7 @@ import com.codingplatform.coding_platform_backend.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +40,7 @@ public class ProblemServiceImpl implements ProblemService {
         }
 
         Problem problem = ProblemMapper.mapToProblem(problemDto);
+        problem.setUpdatedAt(LocalDateTime.now());
         Problem savedProblem = problemRepository.save(problem);
 
         return ProblemMapper.mapToProblemDto(savedProblem);

@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class StarterCodeImpl implements StarterCodeService {
+public class StarterCodeServiceImpl implements StarterCodeService {
     private StarterCodeRepository starterCodeRepository;
     private ProblemRepository problemRepository;
 
     @Autowired
-    public StarterCodeImpl(StarterCodeRepository starterCodeRepository, ProblemRepository problemRepository) {
+    public StarterCodeServiceImpl(StarterCodeRepository starterCodeRepository, ProblemRepository problemRepository) {
         this.starterCodeRepository = starterCodeRepository;
         this.problemRepository = problemRepository;
     }

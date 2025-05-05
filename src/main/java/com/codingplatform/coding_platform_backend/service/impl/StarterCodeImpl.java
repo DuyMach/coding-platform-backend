@@ -12,6 +12,8 @@ import com.codingplatform.coding_platform_backend.service.StarterCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class StarterCodeImpl implements StarterCodeService {
     private StarterCodeRepository starterCodeRepository;
@@ -43,10 +45,25 @@ public class StarterCodeImpl implements StarterCodeService {
 
     @Override
     public StarterCodeDto getStarterCodeByProblemIdAndLanguage(Long problemId, LanguageName language) {
+        if (!problemRepository.existsById(problemId)){
+            throw new ProblemNotFoundException("No StarterCode for non-existent problem (ID) " + problemId);
+        }
+
         StarterCode starterCode = starterCodeRepository.findByProblemIdAndLanguage(problemId, language)
-                .orElseThrow(() -> new IllegalArgumentException("Starter Code for problem (Id) " + problemId + " and language " +
-                        language + " not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Problem (ID) " + problemId + " does not support the " +
+                        language + " language yet!"));
 
         return StarterCodeMapper.mapToDto(starterCode);
+    }
+
+    @Override
+    public Set<StarterCodeDto> getAllStarterCodesByProblemId(Long problemId) {
+        if (!problemRepository.existsById(problemId)){
+            throw new ProblemNotFoundException("No StarterCode for non-existent problem (ID) " + problemId);
+        }
+
+        Set<StarterCode> starterCodes = starterCodeRepository.findAllByProblemId(problemId);
+
+        return StarterCodeMapper.mapToDtoSet(starterCodes);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api")
 public class StarterCodeController {
@@ -35,5 +37,12 @@ public class StarterCodeController {
         StarterCodeDto starterCodeDto = starterCodeService.getStarterCodeByProblemIdAndLanguage(problemId, languageName);
 
         return new ResponseEntity<>(starterCodeDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/problems/{id}/starter-codes")
+    public ResponseEntity<Set<StarterCodeDto>> getAllStarterCodesByProblemId(@PathVariable("id") Long problemId){
+        Set<StarterCodeDto> starterCodeDtoSet = starterCodeService.getAllStarterCodesByProblemId(problemId);
+
+        return new ResponseEntity<>(starterCodeDtoSet, HttpStatus.OK);
     }
 }

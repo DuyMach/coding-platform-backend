@@ -4,6 +4,9 @@ import com.codingplatform.coding_platform_backend.dto.StarterCodeDto;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.StarterCode;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class StarterCodeMapper {
     public static StarterCodeDto mapToDto(StarterCode starterCode){
         return new StarterCodeDto(
@@ -20,5 +23,9 @@ public class StarterCodeMapper {
         starterCode.setCode(starterCodeDto.getCode());
 
         return starterCode;
+    }
+
+    public static Set<StarterCodeDto> mapToDtoSet(Set<StarterCode> starterCodeSet){
+        return starterCodeSet.stream().map(StarterCodeMapper::mapToDto).collect(Collectors.toSet());
     }
 }

@@ -3,6 +3,7 @@ package com.codingplatform.coding_platform_backend.controller;
 import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
 import com.codingplatform.coding_platform_backend.dto.TagDto;
+import com.codingplatform.coding_platform_backend.dto.UpdateProblemDto;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
@@ -81,4 +82,12 @@ public class ProblemController {
         return new ResponseEntity<>(problemDto, HttpStatus.OK);
     }
 
+    @PutMapping("/problems/{id}")
+    public ResponseEntity<UpdateProblemDto> updateProblemById(@PathVariable("id") Long problemId,
+                                                              @RequestBody UpdateProblemDto updateProblemDto)
+    {
+        UpdateProblemDto updatedProblemDto = problemService.updateProblem(problemId, updateProblemDto);
+
+        return new ResponseEntity<>(updatedProblemDto, HttpStatus.OK);
+    }
 }

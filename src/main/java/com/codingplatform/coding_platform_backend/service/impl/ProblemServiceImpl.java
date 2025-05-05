@@ -3,8 +3,10 @@ package com.codingplatform.coding_platform_backend.service.impl;
 import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
 import com.codingplatform.coding_platform_backend.dto.TagDto;
+import com.codingplatform.coding_platform_backend.dto.UpdateProblemDto;
 import com.codingplatform.coding_platform_backend.dto.mapper.ProblemMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.TagMapper;
+import com.codingplatform.coding_platform_backend.dto.mapper.UpdateProblemMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemAlreadyExistException;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
 import com.codingplatform.coding_platform_backend.exception.TagNotFoundException;
@@ -17,7 +19,9 @@ import com.codingplatform.coding_platform_backend.repository.TagRepository;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +43,7 @@ public class ProblemServiceImpl implements ProblemService {
         }
 
         Problem problem = ProblemMapper.mapToProblem(problemDto);
+        problem.setUpdatedAt(LocalDateTime.now());
         Problem savedProblem = problemRepository.save(problem);
 
         return ProblemMapper.mapToProblemDto(savedProblem);
@@ -120,5 +125,18 @@ public class ProblemServiceImpl implements ProblemService {
         List<Problem> problemList = problemRepository.findByTagNameAndDifficulty(tagName, difficulty);
 
         return ProblemMapper.mapToProblemDtoSet(problemList);
+    }
+
+    @Override
+    public UpdateProblemDto updateProblem(Long problemId, UpdateProblemDto updateProblemDto) {
+        Problem problem = problemRepository.findById(problemId)
+                .orElseThrow(() -> new ProblemNotFoundException("Problem with given ID doesn't exist"));
+
+        Problem updatedProblem = UpdateProblemMapper.applyUpdates(problem, updateProblemDto);
+        updatedProblem.setUpdatedAt(LocalDateTime.now());
+
+        Problem savedProblem = problemRepository.save(updatedProblem);
+
+        return UpdateProblemMapper.mapToDto(savedProblem);
     }
 }

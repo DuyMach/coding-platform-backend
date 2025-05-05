@@ -33,7 +33,7 @@ public class ProblemDto {
     @NotBlank(message = "Function name is required")
     private String functionName;
 
-    private String constraints;
+    private List<String> constraints;
 
     private List<String> hints;
 

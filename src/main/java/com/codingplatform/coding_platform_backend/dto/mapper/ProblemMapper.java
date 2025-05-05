@@ -3,6 +3,7 @@ package com.codingplatform.coding_platform_backend.dto.mapper;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
 import com.codingplatform.coding_platform_backend.models.Problem;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,6 +33,8 @@ public class ProblemMapper {
        problem.setFunctionName(problemDto.getFunctionName());
        problem.setPremium(problemDto.isPremium());
        problem.setVisibility(problemDto.getVisibility());
+       problem.setHint(problemDto.getHints());
+       problem.setConstraints(problemDto.getConstraints());
 
        return problem;
     }

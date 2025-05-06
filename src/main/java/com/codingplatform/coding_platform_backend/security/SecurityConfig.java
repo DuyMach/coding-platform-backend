@@ -69,7 +69,7 @@ public class SecurityConfig {
         corsConfiguration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "https://coding-platform-application.duymach.com",
-                "https://coding-platform-frontend-3j2e57m8n-duymachs-projects.vercel.app"
+                "https://coding-platform-frontend-duymachs-projects.vercel.app"
         ));
 
         corsConfiguration.addAllowedHeader("*");

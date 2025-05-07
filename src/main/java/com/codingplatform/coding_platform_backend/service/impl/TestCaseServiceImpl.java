@@ -75,4 +75,13 @@ public class TestCaseServiceImpl implements TestCaseService {
 
         return TestCaseMapper.mapToDto(savedTestCase);
     }
+
+    @Override
+    public String deleteTestCase(Long testCaseId) {
+        TestCase testCase = testCaseRepository.findById(testCaseId)
+                .orElseThrow(() -> new IllegalArgumentException("Test Case with given ID doesn't exist: " + testCaseId));
+
+        testCaseRepository.delete(testCase);
+        return "Test Case deleted successfully (ID): " + testCase;
+    }
 }

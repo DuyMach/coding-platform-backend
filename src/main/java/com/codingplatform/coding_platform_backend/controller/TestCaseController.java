@@ -44,4 +44,11 @@ public class TestCaseController {
 
         return new ResponseEntity<>(updatedTestCase, HttpStatus.OK);
     }
+
+    @DeleteMapping("/test-cases/{id}")
+    public ResponseEntity<String> deleteTestCaseById(@PathVariable("id") Long testCaseId){
+        String message = testCaseService.deleteTestCase(testCaseId);
+
+        return ResponseEntity.noContent().build();
+    }
 }

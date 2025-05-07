@@ -9,4 +9,5 @@ public interface TestCaseService {
     TestCaseDto createTestCase(Long problemId, TestCaseDto testCaseDto);
     Set<TestCaseDto> getAllTestCasesByProblemId(Long problemId);
     TestCaseDto updateTestCaseById(Long testCaseId, UpdateTestCaseDto updateTestCaseDto);
+    String deleteTestCase(Long testCaseId);
 }

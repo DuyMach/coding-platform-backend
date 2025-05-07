@@ -11,6 +11,8 @@ import com.codingplatform.coding_platform_backend.service.TestCaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class TestCaseServiceImpl implements TestCaseService {
     private TestCaseRepository testCaseRepository;
@@ -32,5 +34,16 @@ public class TestCaseServiceImpl implements TestCaseService {
         TestCase savedTestCase = testCaseRepository.save(testCase);
 
         return TestCaseMapper.mapToDto(testCase);
+    }
+
+    @Override
+    public Set<TestCaseDto> getAllTestCasesByProblemId(Long problemId) {
+        if (!problemRepository.existsById(problemId)){
+            throw new ProblemNotFoundException("Problem with given ID doesn't exist: " + problemId);
+        }
+
+        Set<TestCase> testCases = testCaseRepository.findAllByProblemId(problemId);
+
+        return TestCaseMapper.mapToDtoSet(testCases);
     }
 }

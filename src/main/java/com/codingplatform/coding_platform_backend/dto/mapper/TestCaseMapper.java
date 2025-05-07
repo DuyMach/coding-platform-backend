@@ -3,6 +3,9 @@ package com.codingplatform.coding_platform_backend.dto.mapper;
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
 import com.codingplatform.coding_platform_backend.models.TestCase;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class TestCaseMapper {
     public static TestCaseDto mapToDto(TestCase testCase){
         return new TestCaseDto(
@@ -27,5 +30,9 @@ public class TestCaseMapper {
         }
 
         return testCase;
+    }
+
+    public static Set<TestCaseDto> mapToDtoSet(Set<TestCase> testCases){
+        return testCases.stream().map(TestCaseMapper::mapToDto).collect(Collectors.toSet());
     }
 }

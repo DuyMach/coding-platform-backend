@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequestMapping("/api")
 public class TestCaseController {
@@ -28,4 +30,10 @@ public class TestCaseController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    @GetMapping("/problems/{id}/test-cases")
+    public ResponseEntity<Set<TestCaseDto>> getAllTestCasesByProblemId(@PathVariable("id") Long problemId){
+        Set<TestCaseDto> testCaseDtoSet = testCaseService.getAllTestCasesByProblemId(problemId);
+
+        return new ResponseEntity<>(testCaseDtoSet, HttpStatus.OK);
+    }
 }

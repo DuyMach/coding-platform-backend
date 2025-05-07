@@ -1,6 +1,7 @@
 package com.codingplatform.coding_platform_backend.controller;
 
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
+import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
 import com.codingplatform.coding_platform_backend.service.TestCaseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,12 @@ public class TestCaseController {
         Set<TestCaseDto> testCaseDtoSet = testCaseService.getAllTestCasesByProblemId(problemId);
 
         return new ResponseEntity<>(testCaseDtoSet, HttpStatus.OK);
+    }
+
+    @PutMapping("/test-cases/{id}")
+    public ResponseEntity<TestCaseDto> updateTestCaseById(@PathVariable("id") Long testCaseId, @RequestBody UpdateTestCaseDto updateTestCaseDto){
+        TestCaseDto updatedTestCase = testCaseService.updateTestCaseById(testCaseId, updateTestCaseDto);
+
+        return new ResponseEntity<>(updatedTestCase, HttpStatus.OK);
     }
 }

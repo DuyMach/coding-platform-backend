@@ -23,9 +23,9 @@ public class SubmissionResult {
     @Column(columnDefinition = "TEXT")
     private String errorMessage;
 
-    private Long executionTimeMs;
+    private Long executionTime;
 
-    private Long memoryUsedKb;
+    private Long memoryUsed;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "submission_id", nullable = false)

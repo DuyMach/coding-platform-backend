@@ -7,7 +7,7 @@ import com.codingplatform.coding_platform_backend.dto.SubmissionSummaryDto;
 import java.util.Set;
 
 public interface SubmissionService {
-    SubmissionRequestDto createSubmission(SubmissionRequestDto submissionRequestDto);
+    SubmissionDetailsDto createSubmission(SubmissionRequestDto submissionRequestDto);
     Set<SubmissionSummaryDto> getAllSubmissionByUserIdAndProblemId(Long userId, Long problemId);
     SubmissionDetailsDto getSubmissionById(Long submissionId);
 }

@@ -22,8 +22,8 @@ public class SubmissionController {
     }
 
     @PostMapping("/submission")
-    public ResponseEntity<SubmissionRequestDto> createSubmission(@RequestBody SubmissionRequestDto submissionRequestDto){
-        SubmissionRequestDto savedSubmission = submissionService.createSubmission(submissionRequestDto);
+    public ResponseEntity<SubmissionDetailsDto> createSubmission(@RequestBody SubmissionRequestDto submissionRequestDto){
+        SubmissionDetailsDto savedSubmission = submissionService.createSubmission(submissionRequestDto);
 
         return new ResponseEntity<>(savedSubmission, HttpStatus.CREATED);
     }

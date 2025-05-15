@@ -150,4 +150,17 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errorObject, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(TestCaseNotFoundException.class)
+    public ResponseEntity<ErrorObject> handleTestCaseNotFoundException(
+            TestCaseNotFoundException testCaseNotFoundException,
+            WebRequest webRequest)
+    {
+        ErrorObject errorObject = new ErrorObject();
+        errorObject.setStatusCode(HttpStatus.NOT_FOUND.value());
+        errorObject.setMessage(testCaseNotFoundException.getMessage());
+        errorObject.setTimeStamp(new Date());
+
+        return new ResponseEntity<>(errorObject, HttpStatus.NOT_FOUND);
+    }
 }

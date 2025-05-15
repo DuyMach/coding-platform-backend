@@ -5,6 +5,7 @@ import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
 import com.codingplatform.coding_platform_backend.dto.mapper.TestCaseMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.UpdateTestCaseMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
+import com.codingplatform.coding_platform_backend.exception.TestCaseNotFoundException;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.TestCase;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
@@ -54,7 +55,7 @@ public class TestCaseServiceImpl implements TestCaseService {
     public TestCaseDto updateTestCaseById(Long testCaseId, UpdateTestCaseDto updateTestCaseDto) {
         // Will implement custom exception and global handling later
         TestCase testCase = testCaseRepository.findById(testCaseId)
-                .orElseThrow(() -> new IllegalArgumentException("Test Case with given ID doesn't exist: " + testCaseId));
+                .orElseThrow(() -> new TestCaseNotFoundException("Test Case with given ID doesn't exist: " + testCaseId));
 
         // Prevents user from accidentally clearing the input
         if (updateTestCaseDto.getInput() != null && updateTestCaseDto.getInput().trim().isEmpty()){
@@ -79,7 +80,7 @@ public class TestCaseServiceImpl implements TestCaseService {
     @Override
     public String deleteTestCase(Long testCaseId) {
         TestCase testCase = testCaseRepository.findById(testCaseId)
-                .orElseThrow(() -> new IllegalArgumentException("Test Case with given ID doesn't exist: " + testCaseId));
+                .orElseThrow(() -> new TestCaseNotFoundException("Test Case with given ID doesn't exist: " + testCaseId));
 
         testCaseRepository.delete(testCase);
         return "Test Case deleted successfully (ID): " + testCase;

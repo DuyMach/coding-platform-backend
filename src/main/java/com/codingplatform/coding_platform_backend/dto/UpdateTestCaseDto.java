@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class UpdateTestCaseDto {
     private String input;
     private String expectedOutput;

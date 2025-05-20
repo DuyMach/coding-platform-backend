@@ -332,4 +332,49 @@ public class TestCaseServiceTest {
                 .isInstanceOf(TestCaseNotFoundException.class)
                 .hasMessage(TESTCASE_NOT_FOUND_ERROR + testCaseId);
     }
+
+    @Test
+    public void TestCaseService_GetAllSampleTestCasesByProblemId_ReturnsTestCaseDtoSet(){
+        TestCase testCase1 = TestCase.builder()
+                .input("String s = ''")
+                .expectedOutput("")
+                .isSample(true)
+                .problem(problem)
+                .build();
+
+        when(problemRepository.existsById(problemId)).thenReturn(true);
+        when(testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId)).thenReturn(Set.of(testCase, testCase1));
+
+        // Act
+        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+
+        // Assert
+        Assertions.assertThat(result).isNotNull().isNotEmpty();
+        Assertions.assertThat(result).containsExactlyInAnyOrder(TestCaseMapper.mapToDto(testCase), TestCaseMapper.mapToDto(testCase1));
+    }
+
+    @Test
+    public void TestCaseService_GetAllSampleTestCasesByProblemId_ThrowsProblemNotFoundException_WhenProblemNotFound(){
+        // Arrange
+        when(problemRepository.existsById(problemId)).thenReturn(false);
+
+        // Act and Assert
+        String PROBLEM_NOT_FOUND_ERROR = "Problem with given ID doesn't exist: ";
+        Assertions.assertThatThrownBy(() -> testCaseService.getAllSampleTestCasesByProblemId(problemId))
+                .isInstanceOf(ProblemNotFoundException.class)
+                .hasMessage(PROBLEM_NOT_FOUND_ERROR + problemId);
+    }
+
+    @Test
+    public void TestCaseService_GetAllSampleTestCasesByProblemId_ReturnsEmptySet_WhenNoSampleTestCase() {
+        // Arrange
+        when(problemRepository.existsById(problemId)).thenReturn(true);
+        when(testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId)).thenReturn(Set.of());
+
+        // Act
+        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+
+        // Assert
+        Assertions.assertThat(result).isEmpty();
+    }
 }

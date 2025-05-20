@@ -9,4 +9,5 @@ import java.util.Set;
 @Repository
 public interface TestCaseRepository extends JpaRepository<TestCase, Long> {
     Set<TestCase> findAllByProblemId(Long problemId);
+    Set<TestCase> findAllByProblemIdAndIsSampleTrue(Long problemId);
 }

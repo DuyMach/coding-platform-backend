@@ -144,4 +144,73 @@ public class TestCaseRepositoryTest {
         // Assert
         Assertions.assertThat(result).isNotPresent();
     }
+
+    @Test
+    public void TestCaseRepository_FindAllByProblemIdAndSampleTrue_ReturnsTestCaseSet(){
+        // Arrange
+        TestCase testCase1 = TestCase.builder()
+                .input("String s = 'hello world'")
+                .expectedOutput("hello world")
+                .isSample(true)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase1);
+
+        TestCase testCase2 = TestCase.builder()
+                .input("String s = 'sample output'")
+                .expectedOutput("sample output")
+                .isSample(false)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase2);
+
+        TestCase testCase3 = TestCase.builder()
+                .input("String s = ''")
+                .expectedOutput("")
+                .isSample(true)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase3);
+
+        // Act
+        Set<TestCase> result = testCaseRepository.findAllByProblemIdAndIsSampleTrue(savedProblem.getId());
+
+        // Assert
+        Assertions.assertThat(result).isNotNull().isNotEmpty();
+        Assertions.assertThat(result).containsExactlyInAnyOrder(testCase1, testCase3);
+    }
+
+    @Test
+    public void TestCaseRepository_FindAllByProblemIdAndSampleTrue_ReturnsEmptySet_WhenNotFound(){
+        // Arrange
+        TestCase testCase1 = TestCase.builder()
+                .input("String s = 'hello world'")
+                .expectedOutput("hello world")
+                .isSample(false)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase1);
+
+        TestCase testCase2 = TestCase.builder()
+                .input("String s = 'sample output'")
+                .expectedOutput("sample output")
+                .isSample(false)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase2);
+
+        TestCase testCase3 = TestCase.builder()
+                .input("String s = ''")
+                .expectedOutput("")
+                .isSample(false)
+                .problem(savedProblem)
+                .build();
+        testCaseRepository.save(testCase3);
+
+        // Act
+        Set<TestCase> result = testCaseRepository.findAllByProblemIdAndIsSampleTrue(savedProblem.getId());
+
+        // Assert
+        Assertions.assertThat(result).isEmpty();
+    }
 }

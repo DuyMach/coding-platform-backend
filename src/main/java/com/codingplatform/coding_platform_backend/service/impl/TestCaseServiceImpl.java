@@ -85,4 +85,14 @@ public class TestCaseServiceImpl implements TestCaseService {
         testCaseRepository.delete(testCase);
         return "Test Case deleted successfully (ID): " + testCase;
     }
+
+    @Override
+    public Set<TestCaseDto> getAllSampleTestCasesByProblemId(Long problemId) {
+        if (!problemRepository.existsById(problemId)){
+            throw new ProblemNotFoundException("Problem with given ID doesn't exist: " + problemId);
+        }
+
+        Set<TestCase> testCases = testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId);
+        return TestCaseMapper.mapToDtoSet(testCases);
+    }
 }

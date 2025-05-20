@@ -51,4 +51,11 @@ public class TestCaseController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/problems/{id}/sample-test-cases")
+    public ResponseEntity<Set<TestCaseDto>> getAllSampleTestCasesByProblemId(@PathVariable("id") Long problemId){
+        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

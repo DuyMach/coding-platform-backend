@@ -1,7 +1,9 @@
 package com.codingplatform.coding_platform_backend.service.impl;
 
+import com.codingplatform.coding_platform_backend.dto.SampleTestCaseSummaryDto;
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
 import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
+import com.codingplatform.coding_platform_backend.dto.mapper.SampleTestCaseMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.TestCaseMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.UpdateTestCaseMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
@@ -87,12 +89,12 @@ public class TestCaseServiceImpl implements TestCaseService {
     }
 
     @Override
-    public Set<TestCaseDto> getAllSampleTestCasesByProblemId(Long problemId) {
+    public Set<SampleTestCaseSummaryDto> getAllSampleTestCasesByProblemId(Long problemId) {
         if (!problemRepository.existsById(problemId)){
             throw new ProblemNotFoundException("Problem with given ID doesn't exist: " + problemId);
         }
 
         Set<TestCase> testCases = testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId);
-        return TestCaseMapper.mapToDtoSet(testCases);
+        return SampleTestCaseMapper.mapToDtoSet(testCases);
     }
 }

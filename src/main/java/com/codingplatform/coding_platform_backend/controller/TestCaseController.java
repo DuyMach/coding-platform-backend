@@ -1,5 +1,6 @@
 package com.codingplatform.coding_platform_backend.controller;
 
+import com.codingplatform.coding_platform_backend.dto.SampleTestCaseSummaryDto;
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
 import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
 import com.codingplatform.coding_platform_backend.service.TestCaseService;
@@ -53,8 +54,8 @@ public class TestCaseController {
     }
 
     @GetMapping("/problems/{id}/sample-test-cases")
-    public ResponseEntity<Set<TestCaseDto>> getAllSampleTestCasesByProblemId(@PathVariable("id") Long problemId){
-        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+    public ResponseEntity<Set<SampleTestCaseSummaryDto>> getAllSampleTestCasesByProblemId(@PathVariable("id") Long problemId){
+        Set<SampleTestCaseSummaryDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

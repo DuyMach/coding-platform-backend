@@ -3,6 +3,7 @@ package com.codingplatform.coding_platform_backend.ProblemService.repository;
 import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.TestCase;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
+import com.codingplatform.coding_platform_backend.models.enums.LanguageName;
 import com.codingplatform.coding_platform_backend.models.enums.ProblemVisibility;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TestCaseRepository;
@@ -13,12 +14,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+@SpringBootTest
+@ActiveProfiles("test")
+@Transactional
 public class TestCaseRepositoryTest {
     private TestCaseRepository testCaseRepository;
     private ProblemRepository problemRepository;
@@ -53,6 +59,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
 
         // Act
@@ -72,6 +79,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase);
 
@@ -80,6 +88,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase2);
 
@@ -88,6 +97,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("world hello")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase3);
 
@@ -106,6 +116,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase);
 
@@ -134,6 +145,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase);
 
@@ -153,6 +165,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase1);
 
@@ -161,6 +174,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("sample output")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase2);
 
@@ -169,6 +183,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("")
                 .isSample(true)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase3);
 
@@ -188,6 +203,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("hello world")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase1);
 
@@ -196,6 +212,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("sample output")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase2);
 
@@ -204,6 +221,7 @@ public class TestCaseRepositoryTest {
                 .expectedOutput("")
                 .isSample(false)
                 .problem(savedProblem)
+                .language(LanguageName.JAVA)
                 .build();
         testCaseRepository.save(testCase3);
 

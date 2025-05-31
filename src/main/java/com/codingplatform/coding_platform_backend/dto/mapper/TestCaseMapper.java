@@ -13,7 +13,10 @@ public class TestCaseMapper {
                 testCase.getInput(),
                 testCase.getExpectedOutput(),
                 testCase.isSample(),
-                testCase.getProblem().getId()
+                testCase.getProblem().getId(),
+                testCase.getLanguage(),
+                testCase.getExplanation(),
+                testCase.getBeautifiedInput()
         );
     }
 
@@ -22,6 +25,10 @@ public class TestCaseMapper {
 
         testCase.setInput(testCaseDto.getInput());
         testCase.setExpectedOutput(testCaseDto.getExpectedOutput());
+        testCase.setLanguage(testCaseDto.getLanguage());
+        testCase.setExplanation(testCaseDto.getExplanation());
+        testCase.setBeautifiedInput(testCaseDto.getBeautifiedInput());
+
 
         if (testCaseDto.getIsSample() != null){
             testCase.setSample(testCaseDto.getIsSample());

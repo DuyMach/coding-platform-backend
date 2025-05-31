@@ -1,5 +1,6 @@
 package com.codingplatform.coding_platform_backend.dto;
 
+import com.codingplatform.coding_platform_backend.models.enums.LanguageName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,11 @@ public class TestCaseDto {
     private Boolean isSample;
 
     private Long problemId;
+
+    @NotNull
+    private LanguageName language;
+
+    private String explanation;
+
+    private String beautifiedInput;
 }

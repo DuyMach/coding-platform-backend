@@ -1,7 +1,9 @@
 package com.codingplatform.coding_platform_backend.ProblemService.service;
 
+import com.codingplatform.coding_platform_backend.dto.SampleTestCaseSummaryDto;
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
 import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
+import com.codingplatform.coding_platform_backend.dto.mapper.SampleTestCaseMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.TestCaseMapper;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
 import com.codingplatform.coding_platform_backend.exception.TestCaseNotFoundException;
@@ -334,7 +336,7 @@ public class TestCaseServiceTest {
     }
 
     @Test
-    public void TestCaseService_GetAllSampleTestCasesByProblemId_ReturnsTestCaseDtoSet(){
+    public void TestCaseService_GetAllSampleTestCasesByProblemId_ReturnsSampleTestCaseSummaryDtoSet(){
         TestCase testCase1 = TestCase.builder()
                 .input("String s = ''")
                 .expectedOutput("")
@@ -346,11 +348,11 @@ public class TestCaseServiceTest {
         when(testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId)).thenReturn(Set.of(testCase, testCase1));
 
         // Act
-        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+        Set<SampleTestCaseSummaryDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
 
         // Assert
         Assertions.assertThat(result).isNotNull().isNotEmpty();
-        Assertions.assertThat(result).containsExactlyInAnyOrder(TestCaseMapper.mapToDto(testCase), TestCaseMapper.mapToDto(testCase1));
+        Assertions.assertThat(result).containsExactlyInAnyOrder(SampleTestCaseMapper.mapToDto(testCase), SampleTestCaseMapper.mapToDto(testCase1));
     }
 
     @Test
@@ -372,7 +374,7 @@ public class TestCaseServiceTest {
         when(testCaseRepository.findAllByProblemIdAndIsSampleTrue(problemId)).thenReturn(Set.of());
 
         // Act
-        Set<TestCaseDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
+        Set<SampleTestCaseSummaryDto> result = testCaseService.getAllSampleTestCasesByProblemId(problemId);
 
         // Assert
         Assertions.assertThat(result).isEmpty();

@@ -5,6 +5,11 @@ ADD COLUMN language VARCHAR(50) NOT NULL DEFAULT 'JAVA'
 ALTER TABLE test_case
 ADD COLUMN explanation TEXT;
 
+-- I am adding this for now to handle test cases that involves linkedlist, trees, etc.
+-- Until I figure out how to handle auto generating test cases in the future.
+ALTER TABLE test_case
+ADD COLUMN beautified_input TEXT;
+
 -- update the language check constraints to allow JAVASCRIPT, TYPESCRIPT, and CSHARP
 -- never created a check constraint for starter_code xd
 ALTER TABLE starter_code

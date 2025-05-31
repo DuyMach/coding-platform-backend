@@ -34,4 +34,11 @@ public class TestCase {
 
     @Column(columnDefinition = "TEXT")
     private String explanation;
+
+    @Column(columnDefinition = "TEXT", name = "beautified_input")
+    private String beautifiedInput;
+
+    public String getBeautifiedInputOrDefault(){
+        return (beautifiedInput == null || beautifiedInput.isBlank()) ? input : beautifiedInput;
+    }
 }

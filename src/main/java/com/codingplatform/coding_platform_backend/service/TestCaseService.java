@@ -1,5 +1,6 @@
 package com.codingplatform.coding_platform_backend.service;
 
+import com.codingplatform.coding_platform_backend.dto.SampleTestCaseSummaryDto;
 import com.codingplatform.coding_platform_backend.dto.TestCaseDto;
 import com.codingplatform.coding_platform_backend.dto.UpdateTestCaseDto;
 
@@ -10,5 +11,5 @@ public interface TestCaseService {
     Set<TestCaseDto> getAllTestCasesByProblemId(Long problemId);
     TestCaseDto updateTestCaseById(Long testCaseId, UpdateTestCaseDto updateTestCaseDto);
     String deleteTestCase(Long testCaseId);
-    Set<TestCaseDto> getAllSampleTestCasesByProblemId(Long problemId);
+    Set<SampleTestCaseSummaryDto> getAllSampleTestCasesByProblemId(Long problemId);
 }

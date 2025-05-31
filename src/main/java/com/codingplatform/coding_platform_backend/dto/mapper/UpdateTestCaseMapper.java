@@ -17,6 +17,14 @@ public class UpdateTestCaseMapper {
             testCase.setSample(updateTestCaseDto.getIsSample());
         }
 
+        if (updateTestCaseDto.getExplanation() != null){
+            testCase.setExplanation(updateTestCaseDto.getExplanation());
+        }
+
+        if (updateTestCaseDto.getBeautifiedInput() != null){
+            testCase.setBeautifiedInput(updateTestCaseDto.getBeautifiedInput());
+        }
+
         return testCase;
     }
 }

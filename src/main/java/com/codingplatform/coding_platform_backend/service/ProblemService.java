@@ -1,9 +1,6 @@
 package com.codingplatform.coding_platform_backend.service;
 
-import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
-import com.codingplatform.coding_platform_backend.dto.ProblemDto;
-import com.codingplatform.coding_platform_backend.dto.TagDto;
-import com.codingplatform.coding_platform_backend.dto.UpdateProblemDto;
+import com.codingplatform.coding_platform_backend.dto.*;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 
@@ -20,4 +17,8 @@ public interface ProblemService {
     Set<ProblemDto> getAllProblemsByTagName(TagName tagName);
     Set<ProblemDto> getAllProblemsByTagAndDifficulty(TagName tagName, Difficulty difficulty);
     UpdateProblemDto updateProblem(Long problemId, UpdateProblemDto updateProblemDto);
+    ProblemResponse getAllProblemPageable(int pageNo, int pageSize);
+    ProblemResponse getAllProblemByDifficultyPageable(Difficulty difficulty, int pageNo, int pageSize);
+    ProblemResponse getAllProblemsByTagNamePageable(TagName tagName, int pageNo, int pageSize);
+    ProblemResponse getAllProblemsByTagAndDifficultyPageable(TagName tagName, Difficulty difficulty, int pageNo, int pageSize);
 }

@@ -1,9 +1,6 @@
 package com.codingplatform.coding_platform_backend.controller;
 
-import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
-import com.codingplatform.coding_platform_backend.dto.ProblemDto;
-import com.codingplatform.coding_platform_backend.dto.TagDto;
-import com.codingplatform.coding_platform_backend.dto.UpdateProblemDto;
+import com.codingplatform.coding_platform_backend.dto.*;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
@@ -35,7 +32,9 @@ public class ProblemController {
     @GetMapping("/problems")
     public ResponseEntity<Set<ProblemDto>> getAllProblems(
             @RequestParam(required = false) Difficulty difficulty,
-            @RequestParam(required = false) TagName tagName)
+            @RequestParam(required = false) TagName tagName,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize)
 
     {
         Set<ProblemDto> problemDtoSet;
@@ -89,5 +88,25 @@ public class ProblemController {
         UpdateProblemDto updatedProblemDto = problemService.updateProblem(problemId, updateProblemDto);
 
         return new ResponseEntity<>(updatedProblemDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/v2/problems")
+    public ResponseEntity<ProblemResponse> getAllProblemsPageable(
+            @RequestParam(required = false) Difficulty difficulty,
+            @RequestParam(required = false) TagName tagName,
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize)
+    {
+        ProblemResponse problemResponse;
+        if(tagName != null && difficulty != null) {
+            problemResponse = problemService.getAllProblemsByTagAndDifficultyPageable(tagName, difficulty, pageNo, pageSize);
+        } else if (tagName != null){
+            problemResponse = problemService.getAllProblemsByTagNamePageable(tagName, pageNo, pageSize);
+        } else if (difficulty != null){
+            problemResponse = problemService.getAllProblemByDifficultyPageable(difficulty, pageNo, pageSize);
+        } else {
+            problemResponse = problemService.getAllProblemPageable(pageNo, pageSize);
+        }
+        return new ResponseEntity<>(problemResponse, HttpStatus.OK);
     }
 }

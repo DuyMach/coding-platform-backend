@@ -8,13 +8,12 @@ import com.codingplatform.coding_platform_backend.models.enums.TagName;
 import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,13 +37,16 @@ public class ProblemRepositoryTest {
     public void ProblemRepository_Save_ReturnsSavedProblem(){
         // Arrange
         Problem problem = Problem.builder()
-                .title("Test Problem 1")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
                 .isPremium(false)
                 .build();
+        problemRepository.save(problem);
 
         // Act
         Problem savedProblem = problemRepository.save(problem);
@@ -59,8 +61,10 @@ public class ProblemRepositoryTest {
     public void ProblemRepository_FindAll_ReturnsProblemList(){
         // Arrange
         Problem problem = Problem.builder()
-                .title("Test Problem")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -69,9 +73,11 @@ public class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         Problem problem1 = Problem.builder()
-                .title("I am Cold")
-                .description("I live in New York, The Cold Doesn't Bother Me Anyways")
-                .difficulty(Difficulty.EASY)
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
                 .isPremium(false)
@@ -90,8 +96,10 @@ public class ProblemRepositoryTest {
     public void ProblemRepository_FindById_ReturnsProblem(){
         // Arrange
         Problem problem = Problem.builder()
-                .title("Test Problem")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -111,8 +119,10 @@ public class ProblemRepositoryTest {
     public void ProblemRepository_FindAllByDifficulty_ReturnsProblemList(){
         // Arrange
         Problem problem = Problem.builder()
-                .title("Test Problem")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -121,8 +131,10 @@ public class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         Problem problem1 = Problem.builder()
-                .title("I am Cold")
-                .description("I live in New York, The Cold Doesn't Bother Me Anyways")
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -171,8 +183,10 @@ public class ProblemRepositoryTest {
         tagRepository.save(array_tag);
 
         Problem problem = Problem.builder()
-                .title("Test Problem")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -183,9 +197,11 @@ public class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         Problem problem1 = Problem.builder()
-                .title("I am Cold")
-                .description("I live in New York, The Cold Doesn't Bother Me Anyways")
-                .difficulty(Difficulty.MEDIUM)
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
                 .isPremium(false)
@@ -221,8 +237,10 @@ public class ProblemRepositoryTest {
         tagRepository.save(array_tag);
 
         Problem problem = Problem.builder()
-                .title("Test Problem")
-                .description("I need job please!")
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.HARD)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -233,8 +251,10 @@ public class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         Problem problem1 = Problem.builder()
-                .title("I am Cold")
-                .description("I live in New York, The Cold Doesn't Bother Me Anyways")
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
                 .difficulty(Difficulty.MEDIUM)
                 .visibility(ProblemVisibility.PUBLIC)
                 .functionName("testFunction")
@@ -244,7 +264,7 @@ public class ProblemRepositoryTest {
         problemRepository.save(problem1);
 
         Problem problem2 = Problem.builder()
-                .title("Combination Sum")
+                .title("Combination Sum III")
                 .description("Given an array of distinct integers candidates and a target integer target," +
                         " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
                         " You may return the combinations in any order.")
@@ -269,4 +289,76 @@ public class ProblemRepositoryTest {
         Assertions.assertThat(problems_byTag_arrays_difficulty_HARD.size()).isEqualTo(2);
         Assertions.assertThat(problems_byTag_design_difficulty_MEDIUM.size()).isEqualTo(1);
     }
+
+    @Test
+    public void ProblemRepository_FindAllByTagNameAndDifficulty_ReturnsProblemPage(){
+        // Arrange
+        int pageNo = 0, pageSize = 2;
+        Tag design_tag = Tag.builder()
+                .name(TagName.DESIGN)
+                .build();
+        tagRepository.save(design_tag);
+
+        Tag array_tag = Tag.builder()
+                .name(TagName.ARRAYS)
+                .build();
+        tagRepository.save(array_tag);
+
+        Problem problem = Problem.builder()
+                .title("Combination Sum I")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        problem.addTag(design_tag);
+        problem.addTag(array_tag);
+        problemRepository.save(problem);
+
+        Problem problem1 = Problem.builder()
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.MEDIUM)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        problem1.addTag(design_tag);
+        problemRepository.save(problem1);
+
+        Problem problem2 = Problem.builder()
+                .title("Combination Sum III")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        problem2.addTag(array_tag);
+        problemRepository.save(problem2);
+
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+        // Act
+        Page<Problem> problemPage_byTag_arrays_difficulty_HARD = problemRepository.findByTagNameAndDifficulty(TagName.ARRAYS, Difficulty.HARD, pageable);
+        Page<Problem> problemPage_byTag_design_difficulty_MEDIUM = problemRepository.findByTagNameAndDifficulty(TagName.DESIGN, Difficulty.MEDIUM, pageable);
+        Page<Problem> problemPage_byTag_linkedList_difficulty_EASY = problemRepository.findByTagNameAndDifficulty(TagName.LINKED_LIST, Difficulty.EASY, pageable);
+
+        // Assert
+        Assertions.assertThat(problemPage_byTag_arrays_difficulty_HARD.hasContent()).isTrue();
+        Assertions.assertThat(problemPage_byTag_design_difficulty_MEDIUM.hasContent()).isTrue();
+        Assertions.assertThat(problemPage_byTag_linkedList_difficulty_EASY.hasContent()).isFalse();
+
+        Assertions.assertThat(problemPage_byTag_arrays_difficulty_HARD.getTotalElements()).isEqualTo(2);
+        Assertions.assertThat(problemPage_byTag_design_difficulty_MEDIUM.getTotalElements()).isEqualTo(1);
+    }
+
+
 }

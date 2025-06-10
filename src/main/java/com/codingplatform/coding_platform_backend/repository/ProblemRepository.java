@@ -4,6 +4,8 @@ import com.codingplatform.coding_platform_backend.models.Problem;
 import com.codingplatform.coding_platform_backend.models.Tag;
 import com.codingplatform.coding_platform_backend.models.enums.Difficulty;
 import com.codingplatform.coding_platform_backend.models.enums.TagName;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,13 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     @Query("SELECT DISTINCT p FROM Problem p JOIN p.tags t " +
             "WHERE t.name = :tagName AND p.difficulty = :difficulty")
     List<Problem> findByTagNameAndDifficulty(@Param("tagName") TagName tagName, @Param("difficulty") Difficulty difficulty);
+
+    Page<Problem> findAllByDifficulty(Difficulty difficulty, Pageable pageable);
+
+    @Query("SELECT p FROM Problem p JOIN p.tags t WHERE t.name = :tagName")
+    Page<Problem> findByTagName(@Param("tagName") TagName tagName, Pageable pageable);
+
+    @Query("SELECT DISTINCT p FROM Problem p JOIN p.tags t " +
+            "WHERE t.name = :tagName AND p.difficulty = :difficulty")
+    Page<Problem> findByTagNameAndDifficulty(@Param("tagName") TagName tagName, @Param("difficulty") Difficulty difficulty, Pageable pageable);
 }

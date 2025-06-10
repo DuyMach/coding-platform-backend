@@ -1,9 +1,6 @@
 package com.codingplatform.coding_platform_backend.service.impl;
 
-import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
-import com.codingplatform.coding_platform_backend.dto.ProblemDto;
-import com.codingplatform.coding_platform_backend.dto.TagDto;
-import com.codingplatform.coding_platform_backend.dto.UpdateProblemDto;
+import com.codingplatform.coding_platform_backend.dto.*;
 import com.codingplatform.coding_platform_backend.dto.mapper.ProblemMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.TagMapper;
 import com.codingplatform.coding_platform_backend.dto.mapper.UpdateProblemMapper;
@@ -18,6 +15,9 @@ import com.codingplatform.coding_platform_backend.repository.ProblemRepository;
 import com.codingplatform.coding_platform_backend.repository.TagRepository;
 import com.codingplatform.coding_platform_backend.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -138,5 +138,75 @@ public class ProblemServiceImpl implements ProblemService {
         Problem savedProblem = problemRepository.save(updatedProblem);
 
         return UpdateProblemMapper.mapToDto(savedProblem);
+    }
+
+    @Override
+    public ProblemResponse getAllProblemPageable(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Problem> problems = problemRepository.findAll(pageable);
+        List<Problem> problemList = problems.getContent();
+        Set<ProblemDto> content = ProblemMapper.mapToProblemDtoSet(problemList);
+
+        return ProblemResponse.builder()
+                .content(content.stream().toList())
+                .pageNo(problems.getNumber())
+                .pageSize(problems.getSize())
+                .totalElements(problems.getTotalElements())
+                .totalPages(problems.getTotalPages())
+                .isLastPage(problems.isLast())
+                .build();
+    }
+
+    @Override
+    public ProblemResponse getAllProblemByDifficultyPageable(Difficulty difficulty, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Problem> problemPage = problemRepository.findAllByDifficulty(difficulty, pageable);
+        List<Problem> problemList = problemPage.getContent();
+        List<ProblemDto> content = ProblemMapper.mapToProblemDtoSet(problemList).stream().toList();
+
+
+
+        return ProblemResponse.builder()
+                .content(content.stream().toList())
+                .pageNo(problemPage.getNumber())
+                .pageSize(problemPage.getSize())
+                .totalElements(problemPage.getTotalElements())
+                .totalPages(problemPage.getTotalPages())
+                .isLastPage(problemPage.isLast())
+                .build();
+    }
+
+    @Override
+    public ProblemResponse getAllProblemsByTagNamePageable(TagName tagName, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Problem> problemPage = problemRepository.findByTagName(tagName, pageable);
+        List<Problem> problemList = problemPage.getContent();
+        List<ProblemDto> content = ProblemMapper.mapToProblemDtoSet(problemList).stream().toList();
+
+        return ProblemResponse.builder()
+                .content(content.stream().toList())
+                .pageNo(problemPage.getNumber())
+                .pageSize(problemPage.getSize())
+                .totalElements(problemPage.getTotalElements())
+                .totalPages(problemPage.getTotalPages())
+                .isLastPage(problemPage.isLast())
+                .build();
+    }
+
+    @Override
+    public ProblemResponse getAllProblemsByTagAndDifficultyPageable(TagName tagName, Difficulty difficulty, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Problem> problemPage = problemRepository.findByTagNameAndDifficulty(tagName, difficulty, pageable);
+        List<Problem> problemList = problemPage.getContent();
+        List<ProblemDto> content = ProblemMapper.mapToProblemDtoSet(problemList).stream().toList();
+
+        return ProblemResponse.builder()
+                .content(content.stream().toList())
+                .pageNo(problemPage.getNumber())
+                .pageSize(problemPage.getSize())
+                .totalElements(problemPage.getTotalElements())
+                .totalPages(problemPage.getTotalPages())
+                .isLastPage(problemPage.isLast())
+                .build();
     }
 }

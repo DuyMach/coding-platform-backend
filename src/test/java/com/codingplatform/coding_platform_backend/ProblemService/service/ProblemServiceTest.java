@@ -2,6 +2,7 @@ package com.codingplatform.coding_platform_backend.ProblemService.service;
 
 import com.codingplatform.coding_platform_backend.dto.AddTagsToProblemDto;
 import com.codingplatform.coding_platform_backend.dto.ProblemDto;
+import com.codingplatform.coding_platform_backend.dto.ProblemResponse;
 import com.codingplatform.coding_platform_backend.dto.TagDto;
 import com.codingplatform.coding_platform_backend.exception.ProblemAlreadyExistException;
 import com.codingplatform.coding_platform_backend.exception.ProblemNotFoundException;
@@ -21,6 +22,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
 
@@ -508,5 +512,229 @@ public class ProblemServiceTest {
         // Assert
         Assertions.assertThat(problemDtoSet).isNotNull();
         Assertions.assertThat(problemDtoSet.size()).isEqualTo(expectedSize);
+    }
+
+    @Test
+    public void ProblemService_GetAllProblemPageable_ReturnsProblemResponse(){
+        // Arrange
+        int pageNo = 0, pageSize = 2;
+        Problem problem = Problem.builder()
+                .title("Combination Sum")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        Problem problem2 = Problem.builder()
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        Problem problem3 = Problem.builder()
+                .title("Combination Sum III")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+
+        List<Problem> problems = Arrays.asList(problem, problem2, problem3);
+        Page<Problem> problemPage = new PageImpl<>(problems, PageRequest.of(pageNo, pageSize), problems.size());
+
+        when(problemRepository.findAll(PageRequest.of(pageNo, pageSize))).thenReturn(problemPage);
+
+        // Act
+        ProblemResponse problemResponse = problemService.getAllProblemPageable(pageNo, pageSize);
+
+        // Assert
+        Assertions.assertThat(problemResponse).isNotNull();
+        Assertions.assertThat(problemResponse.getContent()).hasSize(problems.size());
+        Assertions.assertThat(problemResponse.getPageNo()).isEqualTo(pageNo);
+        Assertions.assertThat(problemResponse.getPageSize()).isEqualTo(pageSize);
+        Assertions.assertThat(problemResponse.getTotalPages()).isEqualTo(2);
+        Assertions.assertThat(problemResponse.isLastPage()).isFalse();
+    }
+
+    @Test
+    public void ProblemService_GetAllProblemByDifficultyPageable_ReturnsProblemResponse(){
+        // Arrange
+        int pageNo = 0, pageSize = 2;
+        Problem problem = Problem.builder()
+                .title("Combination Sum")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        Problem problem2 = Problem.builder()
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+        Problem problem3 = Problem.builder()
+                .title("Combination Sum III")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .build();
+
+        List<Problem> problems = Arrays.asList(problem, problem2, problem3);
+        Page<Problem> problemPage = new PageImpl<>(problems, PageRequest.of(pageNo, pageSize), problems.size());
+
+        when(problemRepository.findAllByDifficulty(Difficulty.HARD, PageRequest.of(pageNo, pageSize))).thenReturn(problemPage);
+
+        // Act
+        ProblemResponse problemResponse = problemService.getAllProblemByDifficultyPageable(Difficulty.HARD, pageNo, pageSize);
+
+        // Assert
+        Assertions.assertThat(problemResponse).isNotNull();
+        Assertions.assertThat(problemResponse.getContent()).hasSize(problems.size());
+        Assertions.assertThat(problemResponse.getPageNo()).isEqualTo(pageNo);
+        Assertions.assertThat(problemResponse.getPageSize()).isEqualTo(pageSize);
+        Assertions.assertThat(problemResponse.getTotalPages()).isEqualTo(2);
+        Assertions.assertThat(problemResponse.isLastPage()).isFalse();
+    }
+
+    @Test
+    public void ProblemService_GetAllProblemByTagNamePageable_ReturnsProblemResponse(){
+        // Arrange
+        int pageNo = 0, pageSize = 2;
+
+        Tag backtracking_tag = Tag.builder()
+                .name(TagName.BACKTRACKING)
+                .build();
+
+        Problem problem = Problem.builder()
+                .title("Combination Sum")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+        Problem problem2 = Problem.builder()
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+        Problem problem3 = Problem.builder()
+                .title("Combination Sum III")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+
+        List<Problem> problems = Arrays.asList(problem, problem2, problem3);
+        Page<Problem> problemPage = new PageImpl<>(problems, PageRequest.of(pageNo, pageSize), problems.size());
+
+        when(problemRepository.findByTagName(TagName.BACKTRACKING, PageRequest.of(pageNo, pageSize))).thenReturn(problemPage);
+
+        // Act
+        ProblemResponse problemResponse = problemService.getAllProblemsByTagNamePageable(TagName.BACKTRACKING, pageNo, pageSize);
+
+        // Assert
+        Assertions.assertThat(problemResponse).isNotNull();
+        Assertions.assertThat(problemResponse.getContent()).hasSize(problems.size());
+        Assertions.assertThat(problemResponse.getPageNo()).isEqualTo(pageNo);
+        Assertions.assertThat(problemResponse.getPageSize()).isEqualTo(pageSize);
+        Assertions.assertThat(problemResponse.getTotalPages()).isEqualTo(2);
+        Assertions.assertThat(problemResponse.isLastPage()).isFalse();
+    }
+
+    @Test
+    public void ProblemService_GetAllProblemByTagAndDifficultyPageable_ReturnsProblemResponse(){
+        // Arrange
+        int pageNo = 0, pageSize = 2;
+
+        Tag backtracking_tag = Tag.builder()
+                .name(TagName.BACKTRACKING)
+                .build();
+
+        Problem problem = Problem.builder()
+                .title("Combination Sum")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+        Problem problem2 = Problem.builder()
+                .title("Combination Sum II")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+        Problem problem3 = Problem.builder()
+                .title("Combination Sum III")
+                .description("Given an array of distinct integers candidates and a target integer target," +
+                        " return a list of all unique combinations of candidates where the chosen numbers sum to target." +
+                        " You may return the combinations in any order.")
+                .difficulty(Difficulty.HARD)
+                .visibility(ProblemVisibility.PUBLIC)
+                .functionName("testFunction")
+                .isPremium(false)
+                .tags(Set.of(backtracking_tag))
+                .build();
+
+        List<Problem> problems = Arrays.asList(problem, problem2, problem3);
+        Page<Problem> problemPage = new PageImpl<>(problems, PageRequest.of(pageNo, pageSize), problems.size());
+
+        when(problemRepository.findByTagNameAndDifficulty(TagName.BACKTRACKING, Difficulty.HARD, PageRequest.of(pageNo, pageSize))).thenReturn(problemPage);
+
+        // Act
+        ProblemResponse problemResponse = problemService.getAllProblemsByTagAndDifficultyPageable(TagName.BACKTRACKING, Difficulty.HARD, pageNo, pageSize);
+
+        // Assert
+        Assertions.assertThat(problemResponse).isNotNull();
+        Assertions.assertThat(problemResponse.getContent()).hasSize(problems.size());
+        Assertions.assertThat(problemResponse.getPageNo()).isEqualTo(pageNo);
+        Assertions.assertThat(problemResponse.getPageSize()).isEqualTo(pageSize);
+        Assertions.assertThat(problemResponse.getTotalPages()).isEqualTo(2);
+        Assertions.assertThat(problemResponse.isLastPage()).isFalse();
     }
 }
